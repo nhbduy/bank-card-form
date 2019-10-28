@@ -29,6 +29,15 @@ function reducers(state, action) {
   const { type, data, initialState } = action;
 
   switch (type) {
+    case ACTIONS.UPDATE_STATE: {
+      const { value, key } = data;
+
+      return {
+        ...state,
+        [key]: value || initialState[key]
+      };
+    }
+
     case ACTIONS.UPDATE_CARD_TYPE: {
       const number = data;
 
@@ -50,15 +59,6 @@ function reducers(state, action) {
         ...state,
         [maskKey]: maskRes || initialState[maskKey],
         [numberKey]: numberRes || initialState[numberKey]
-      };
-    }
-
-    case ACTIONS.UPDATE_TEXT: {
-      const { value, textKey } = data;
-
-      return {
-        ...state,
-        [textKey]: value || initialState[textKey]
       };
     }
 

@@ -49,7 +49,8 @@ function Form() {
     onChangeCardName,
     onChangeCardMonth,
     onChangeCardYear,
-    onChangeCardCvv
+    onChangeCardCvv,
+    onChangeIsCardFlipped
   } = useContext(AppStoreContext);
 
   const months = getMonthList();
@@ -87,6 +88,7 @@ function Form() {
           className='card-input__input'
           data-ref='cardName'
           autoComplete='off'
+          maxLength={25}
           onChange={onChangeCardName}
         />
       </div>
@@ -136,6 +138,8 @@ function Form() {
               mask='999'
               alwaysShowMask
               onChange={onChangeCardCvv}
+              onFocus={() => onChangeIsCardFlipped(true)}
+              onBlur={() => onChangeIsCardFlipped(false)}
             />
           </div>
         </div>

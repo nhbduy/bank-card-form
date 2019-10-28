@@ -16,7 +16,8 @@ const defaultKeyData = {
   cardMonth: 'cardMonth',
   cardYear: 'cardYear',
   cardCvvMask: 'cardCvvMask',
-  cardCvv: 'cardCvv'
+  cardCvv: 'cardCvv',
+  isCardFlipped: 'isCardFlipped'
 };
 
 const initialState = {
@@ -28,9 +29,9 @@ const initialState = {
   [defaultKeyData.cardMonth]: 'MM',
   [defaultKeyData.cardYear]: 'YY',
   [defaultKeyData.cardCvvMask]: '###',
-  [defaultKeyData.cardCvv]: ''
+  [defaultKeyData.cardCvv]: '',
   // minCardYear: new Date().getFullYear()
-  // isCardFlipped: false,
+  [defaultKeyData.isCardFlipped]: false
   // focusElementStyle: null,
   // isInputFocused: false
 };
@@ -60,10 +61,10 @@ function App() {
       }),
     onChangeCardName: event =>
       dispatch({
-        type: ACTIONS.UPDATE_TEXT,
+        type: ACTIONS.UPDATE_STATE,
         data: {
           value: event.target.value,
-          textKey: defaultKeyData.cardName
+          key: defaultKeyData.cardName
         },
         initialState
       }),
@@ -89,6 +90,15 @@ function App() {
           value: event.target.value,
           maskKey: defaultKeyData.cardCvvMask,
           numberKey: defaultKeyData.cardCvv
+        },
+        initialState
+      }),
+    onChangeIsCardFlipped: value =>
+      dispatch({
+        type: ACTIONS.UPDATE_STATE,
+        data: {
+          value,
+          key: defaultKeyData.isCardFlipped
         },
         initialState
       })

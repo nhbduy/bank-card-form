@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { AppStoreContext } from '../context';
 
+const cn = require('classname');
+
 const imageUrls = {
   background:
     'https://raw.githubusercontent.com/nhbduy/public-images/master/B/background-7.jpeg',
@@ -25,8 +27,11 @@ function Card() {
     cardName,
     cardMonth,
     cardYear,
-    cardCvvMask
+    cardCvvMask,
+    isCardFlipped
   } = useContext(AppStoreContext);
+
+  const [isTyping, setIsTyping] = useState(false);
 
   const renderCardNumber = () => {
     return (
@@ -42,7 +47,7 @@ function Card() {
 
   return (
     <div className='card-list'>
-      <div className='card-item'>
+      <div className={cn(['card-item', isCardFlipped ? '-active' : ''])}>
         <div className='card-item__side -front'>
           <div className='card-item__focus' />
           <div className='card-item__cover'>
@@ -110,14 +115,16 @@ function Card() {
           <div className='card-item__band' />
           <div className='card-item__cvv'>
             <div className='card-item__cvvTitle'>CVV</div>
-            <div className='card-item__cvvBand'></div>
-            <div className='card-item__type'>
-              <img
-                className='card-item__typeImg'
-                src={imageUrls[cardType]}
-                alt='Bank Card Brand Back'
-              />
-            </div>
+            <div className='card-item__cvvBand'>{cardCvvMask}</div>
+            {cardType !== 'brand' && (
+              <div className='card-item__type'>
+                <img
+                  className='card-item__typeImg'
+                  src={imageUrls[cardType]}
+                  alt='Bank Card Brand Back'
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
