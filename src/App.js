@@ -1,25 +1,108 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useReducer } from 'react';
 import './App.css';
+import Form from './components/Form';
+import Card from './components/Card';
+
+import { AppStoreContext } from './context';
+import ACTIONS from './actions';
+import CONSTANT from './constant';
+import reducers from './reducers';
+
+const defaultKeyData = {
+  cardType: 'cardType',
+  cardNumberMask: 'cardNumberMask',
+  cardNumber: 'cardNumber',
+  cardName: 'cardName',
+  cardMonth: 'cardMonth',
+  cardYear: 'cardYear',
+  cardCvvMask: 'cardCvvMask',
+  cardCvv: 'cardCvv'
+};
+
+const initialState = {
+  // cardBackground: Math.floor(Math.random() * 25 + 1),
+  [defaultKeyData.cardType]: 'brand',
+  [defaultKeyData.cardNumberMask]: CONSTANT.OTHER_CARD_MASK,
+  [defaultKeyData.cardNumber]: '',
+  [defaultKeyData.cardName]: 'full name',
+  [defaultKeyData.cardMonth]: 'MM',
+  [defaultKeyData.cardYear]: 'YY',
+  [defaultKeyData.cardCvvMask]: '###',
+  [defaultKeyData.cardCvv]: ''
+  // minCardYear: new Date().getFullYear()
+  // isCardFlipped: false,
+  // focusElementStyle: null,
+  // isInputFocused: false
+};
 
 function App() {
+  const [state, dispatch] = useReducer(reducers, initialState);
+
+  // const { cardNumber } = state;
+
+  const appAPI = {
+    ...state,
+    onChangeCardType: event =>
+      dispatch({
+        type: ACTIONS.UPDATE_CARD_TYPE,
+        data: event.target.value,
+        initialState
+      }),
+    onChangeCardNumber: event =>
+      dispatch({
+        type: ACTIONS.UPDATE_NUMBER_WITH_MASK,
+        data: {
+          value: event.target.value,
+          maskKey: defaultKeyData.cardNumberMask,
+          numberKey: defaultKeyData.cardNumber
+        },
+        initialState
+      }),
+    onChangeCardName: event =>
+      dispatch({
+        type: ACTIONS.UPDATE_TEXT,
+        data: {
+          value: event.target.value,
+          textKey: defaultKeyData.cardName
+        },
+        initialState
+      }),
+    onChangeCardMonth: event =>
+      dispatch({
+        type: ACTIONS.UPDATE_NUMBER_SELECT,
+        data: {
+          value: event.target.value,
+          numberKey: defaultKeyData.cardMonth
+        },
+        initialState
+      }),
+    onChangeCardYear: event =>
+      dispatch({
+        type: ACTIONS.UPDATE_NUMBER_SELECT,
+        data: { value: event.target.value, numberKey: defaultKeyData.cardYear },
+        initialState
+      }),
+    onChangeCardCvv: event =>
+      dispatch({
+        type: ACTIONS.UPDATE_NUMBER_WITH_MASK,
+        data: {
+          value: event.target.value,
+          maskKey: defaultKeyData.cardCvvMask,
+          numberKey: defaultKeyData.cardCvv
+        },
+        initialState
+      })
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppStoreContext.Provider value={appAPI}>
+      <div id='app' className='wrapper'>
+        <div className='card-form'>
+          <Card />
+          <Form />
+        </div>
+      </div>
+    </AppStoreContext.Provider>
   );
 }
 
