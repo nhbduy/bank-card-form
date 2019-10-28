@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 
 import { AppStoreContext } from '../context';
 
@@ -30,8 +29,6 @@ function Card() {
     cardCvvMask,
     isCardFlipped
   } = useContext(AppStoreContext);
-
-  const [isTyping, setIsTyping] = useState(false);
 
   const renderCardNumber = () => {
     return (
@@ -131,7 +128,5 @@ function Card() {
     </div>
   );
 }
-
-Card.propTypes = {};
 
 export default Card;

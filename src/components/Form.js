@@ -1,5 +1,4 @@
-import React, { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 
 import moment from 'moment';
 import InputMask from 'react-input-mask';
@@ -38,12 +37,12 @@ const getYearList = () => {
 function Form() {
   const {
     cardType,
-    cardNumberMask,
-    cardNumber,
-    cardName,
+    // cardNumberMask,
+    // cardNumber,
+    // cardName,
     cardMonth,
     cardYear,
-    cardCvv,
+    // cardCvv,
     onChangeCardType,
     onChangeCardNumber,
     onChangeCardName,
@@ -148,7 +147,5 @@ function Form() {
     </div>
   );
 }
-
-Form.propTypes = {};
 
 export default Form;

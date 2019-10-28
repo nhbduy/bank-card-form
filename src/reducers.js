@@ -1,5 +1,4 @@
 import ACTIONS from './actions';
-import CONSTANT from './constant';
 
 function getCardType(cardNumber) {
   const amexRegex = new RegExp('^(34|37)');
