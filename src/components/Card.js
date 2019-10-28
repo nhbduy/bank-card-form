@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { AppStoreContext } from '../context';
 
@@ -34,9 +35,14 @@ function Card() {
     return (
       <React.Fragment>
         {cardNumberMask.split('').map((item, index) => (
-          <span key={`${item}-${index}`}>
-            <div className='card-item__numberItem slide-fade-up'>{item}</div>
-          </span>
+          <CSSTransition
+            key={`${item}-${index}`}
+            classNames='item'
+            timeout={500}>
+            <span>
+              <div className='card-item__numberItem'>{item}</div>
+            </span>
+          </CSSTransition>
         ))}
       </React.Fragment>
     );
@@ -62,17 +68,21 @@ function Card() {
                 alt='Bank Card Chip'
               />
               {cardType !== 'brand' && (
-                <div className='card-item__type slide-fade-up'>
-                  <img
-                    className='card-item__typeImg slide-fade-up'
-                    src={imageUrls[cardType]}
-                    alt='Bank Card Brand Front'
-                  />
+                <div className='card-item__type'>
+                  <TransitionGroup>
+                    <CSSTransition classNames='item'>
+                      <img
+                        className='card-item__typeImg'
+                        src={imageUrls[cardType]}
+                        alt='Bank Card Brand Front'
+                      />
+                    </CSSTransition>
+                  </TransitionGroup>
                 </div>
               )}
             </div>
             <label htmlFor='cardNumber' className='card-item__number'>
-              {renderCardNumber()}
+              <TransitionGroup>{renderCardNumber()}</TransitionGroup>
             </label>
             <div className='card-item__content'>
               <label htmlFor='cardName' className='card-item__info'>

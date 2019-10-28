@@ -572,28 +572,95 @@ body {
   }
 }
 
-.slide-fade-up-enter-active {
-  transition: all 0.25s ease-in-out;
-  transition-delay: 0.1s;
-  position: relative;
+.slide-fade-up {
+  &-enter {
+    opacity: 0;
+    transform: translateY(15px);
+    pointer-events: none;
+
+    &.-active {
+      transition: all 0.25s ease-in-out;
+      transition-delay: 0.1s;
+      position: relative;
+      // opacity: 1;
+    }
+  }
+
+  &-exit {
+    opacity: 0;
+    transform: translateY(-15px);
+    pointer-events: none;
+
+    &.-active {
+      transition: all 0.25s ease-in-out;
+      position: absolute;
+      // opacity: 0;
+    }
+  }
 }
 
-.slide-fade-up-leave-active {
-  transition: all 0.25s ease-in-out;
-  position: absolute;
-}
+// @keyframes scale-up-enter {
+//   0% {
+//     opacity: 0;
+//     transform: translateY(20px);
+//     pointer-events: none;
+//   }
 
-.slide-fade-up-enter {
+//   100% {
+//     // transition: all 0.25s ease-in-out;
+//     transition-delay: 0.1s;
+//     position: relative;
+//   }
+// }
+
+// .scale-up-enter {
+//   animation: scale-up-enter 0.5s ease-in-out both;
+// }
+
+.item-enter {
   opacity: 0;
-  transform: translateY(15px);
-  pointer-events: none;
 }
 
-.slide-fade-up-leave-to {
-  opacity: 0;
-  transform: translateY(-15px);
-  pointer-events: none;
+.item-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
 }
+
+.item-exit {
+  opacity: 1;
+}
+
+.item-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
+
+// .slide-fade-up-enter {
+//   opacity: 0;
+//   transform: translateY(15px);
+//   pointer-events: none;
+// }
+
+// .slide-fade-up-enter.slide-fade-up-enter-active {
+//   transition: all 0.25s ease-in-out;
+//   transition-delay: 0.1s;
+//   position: relative;
+//   opacity: 1;
+// }
+
+
+// .slide-fade-up-exit {
+//   opacity: 1;
+//   transform: translateY(-15px);
+//   pointer-events: none;
+// }
+
+// .slide-fade-up-exit.slide-fade-up-exit-active {
+//   transition: all 0.25s ease-in-out;
+//   position: absolute;
+//   opacity: 0;
+// }
+
 
 // .slide-fade-right-enter-active {
 //   transition: all 0.25s ease-in-out;
